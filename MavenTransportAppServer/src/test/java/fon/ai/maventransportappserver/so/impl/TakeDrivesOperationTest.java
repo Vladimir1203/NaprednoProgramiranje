@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fon.ai.maventransportappserver.so.impl;
 
 import static org.junit.Assert.assertEquals;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,37 +9,27 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fon.ai.maventransportappcommon.domain.Driver;
+import fon.ai.maventransportappcommon.domain.Drive;
 import fon.ai.maventransportappcommon.domain.IGeneralEntity;
 import fon.ai.maventransportappcommon.domain.User;
 import fon.ai.maventransportappserver.so.AbstractGenericOperation;
 
-/**
- *
- * @author stackOverflow
- */
-public class TakeDriversOperationTest {
+public class TakeDrivesOperationTest {
 	protected IGeneralEntity entity;
 	protected AbstractGenericOperation so;
 
-	public TakeDriversOperationTest() {
-	}
-
 	@Before
-	public void setUp() throws SQLException {
-		entity = new Driver();
-		so = new TakeDriversOperation();
+	public void setUp() throws Exception {
+		entity = new Drive();
+		so = new TakeDrivesOperation();
 		so.db.openConnection();
 	}
 
 	@After
-	public void tearDown() throws SQLException {
+	public void tearDown() throws Exception {
 		so.db.closeConnection();
 	}
 
-	/**
-	 * Test of validate method, of class TakeDriversOperation.
-	 */
 	@Test
 	public void testValidate() throws Exception {
 		System.out.println("validate");
@@ -58,29 +42,23 @@ public class TakeDriversOperationTest {
 		so.validate(new User());
 	}
 
-	/**
-	 * Test of execute method, of class TakeDriversOperation.
-	 */
 	@Test
 	public void testExecute() throws Exception {
 		System.out.println("executing");
-		List<Driver> expected = new ArrayList<>();
+		List<Drive> expected = new ArrayList<>();
 		List<IGeneralEntity> lista = so.db.vratiSve(entity);
 		for (IGeneralEntity ent : lista)
-			expected.add((Driver) ent);
+			expected.add((Drive) ent);
 		so.execute(entity);
-		List<IGeneralEntity> rezultat = ((TakeDriversOperation) so).getLista();
+		List<IGeneralEntity> rezultat = ((TakeDrivesOperation) so).getLista();
 		assertEquals(expected.size(), rezultat.size());
 	}
 
-	/**
-	 * Test of getLista method, of class TakeDriversOperation.
-	 */
 	@Test
 	public void testGetLista() throws Exception {
 		System.out.println("getLista");
 		so.execute(entity);
-		List<IGeneralEntity> expResult = ((TakeDriversOperation) so).getLista();
+		List<IGeneralEntity> expResult = ((TakeDrivesOperation) so).getLista();
 		List<IGeneralEntity> result = so.db.vratiSve(entity);
 
 		assertEquals(expResult.size(), result.size());

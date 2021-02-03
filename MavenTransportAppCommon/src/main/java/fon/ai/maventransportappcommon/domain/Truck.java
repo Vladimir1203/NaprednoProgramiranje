@@ -127,4 +127,6 @@ public class Truck extends Vehicle implements Serializable, IGeneralEntity{
         return list;
     }    
     
+    
+    
 }

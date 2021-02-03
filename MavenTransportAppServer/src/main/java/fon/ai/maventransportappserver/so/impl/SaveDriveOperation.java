@@ -14,28 +14,25 @@ import fon.ai.maventransportappserver.so.AbstractGenericOperation;
  *
  * @author Windows HD
  */
-public class SaveDriveOperation extends AbstractGenericOperation{
-    
+public class SaveDriveOperation extends AbstractGenericOperation {
 
-    @Override
-    public void validate(Object entity) throws Exception {
-        if(!(entity instanceof Drive)) {
-            throw new Exception("Objekat nije validan");
-        }
-    }
+	@Override
+	public void validate(Object entity) throws Exception {
+		if (!(entity instanceof Drive)) {
+			throw new Exception("Objekat nije validan");
+		}
+	}
 
-    @Override
-    public void execute(Object entity) throws Exception {
-        Drive d = (Drive) entity;
-        db.sacuvaj((IGeneralEntity) entity);
-        System.out.println("DOSAO DOVDE");
-        if(d.getCosts() == null)
-            return;
-        for(Cost c : d.getCosts()){
-            c.setDrive(d);
-            db.sacuvaj((IGeneralEntity)c);
-        }
-    }
-    
-    
+	@Override
+	public void execute(Object entity) throws Exception {
+		Drive d = (Drive) entity;
+		db.sacuvaj((IGeneralEntity) entity);
+		if (d.getCosts() == null)
+			return;
+		for (Cost c : d.getCosts()) {
+			c.setDrive(d);
+			db.sacuvaj((IGeneralEntity) c);
+		}
+	}
+
 }

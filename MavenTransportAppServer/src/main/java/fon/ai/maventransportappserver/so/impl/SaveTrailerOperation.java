@@ -28,7 +28,6 @@ public class SaveTrailerOperation extends AbstractGenericOperation{
     @Override
     public void execute(Object entity) throws Exception {
         Vehicle v = (Vehicle) entity;
-        System.out.println("makar usao u execute");
         /*lista = db.vratiPoUslovu((IGeneralEntity) entity);
         if (!lista.isEmpty()) {
             throw new Exception("Vec postoji ovaj kamion");

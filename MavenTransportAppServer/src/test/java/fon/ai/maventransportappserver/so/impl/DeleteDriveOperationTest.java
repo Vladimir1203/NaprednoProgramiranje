@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fon.ai.maventransportappserver.so.impl;
 
 import static org.junit.Assert.assertEquals;
 
-import java.sql.SQLException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.junit.After;
 import org.junit.Before;
@@ -25,40 +17,32 @@ import fon.ai.maventransportappcommon.domain.User;
 import fon.ai.maventransportappcommon.domain.VehicleType;
 import fon.ai.maventransportappserver.so.AbstractGenericOperation;
 
-/**
- *
- * @author stackOverflow
- */
-public class SaveDriveOperationTest {
+public class DeleteDriveOperationTest {
+
 	protected IGeneralEntity entity;
 	protected AbstractGenericOperation so;
 
-	public SaveDriveOperationTest() {
-	}
-
 	@Before
-	public void setUp() throws SQLException {
+	public void setUp() throws Exception {
 		Truck truck = new Truck("AUTOMATIC", "daf", 1995, "RA013CD", 8800, "K");
 		Trailer trailer = new Trailer(VehicleType.CIRADA, 22000, "SMITZ", 1995, "AA447RA", 7500, "P");
 		Driver driver = new Driver(12345678, "Vlada", "Vladic");
-		entity = new Drive(14, new Date(), 500, trailer, truck, driver);
-		so = new SaveDriveOperation();
+		entity = new Drive(150, new Date(), 500, trailer, truck, driver);
+		so = new DeleteDriveOperation();
 		so.db.openConnection();
 	}
 
 	@After
-	public void tearDown() {
-		so = new DeleteDriveOperation();
-		try {
-			so.templateExecute(entity);
-		} catch (Exception ex) {
-			Logger.getLogger(SaveDriveOperationTest.class.getName()).log(Level.SEVERE, null, ex);
-		}
+	public void tearDown() throws Exception {
+		// so = new SaveDriveOperation();
+		// try {
+		// so.templateExecute(entity);
+		// } catch (Exception ex) {
+		// Logger.getLogger(SaveDriveOperationTest.class.getName()).log(Level.SEVERE,
+		// null, ex);
+		// }
 	}
 
-	/**
-	 * Test of validate method, of class SaveDriveOperation.
-	 */
 	@Test
 	public void testValidate() throws Exception {
 		System.out.println("validate");
@@ -74,22 +58,8 @@ public class SaveDriveOperationTest {
 	/**
 	 * Test of execute method, of class SaveDriveOperation.
 	 */
-	@Test
+	@Test(expected = java.lang.Exception.class)
 	public void testExecute() throws Exception {
-		System.out.println("execute");
-		so.execute(entity);
-		Drive expected = (Drive) so.db.vratiPoId((IGeneralEntity) entity);
-		Drive compare = (Drive) entity;
-		assertEquals(expected, compare);
-	}
-
-	@Test
-	public void testExecute1() throws Exception {
-		Truck truck = new Truck("AUTOMATIC", "daf", 1995, "RA013CD", 8800, "K");
-		Trailer trailer = new Trailer(VehicleType.CIRADA, 22000, "SMITZ", 1995, "AA447RA", 7500, "P");
-		Driver driver = new Driver(12345678, "Vlada", "Vladic");
-		entity = new Drive(-1, new Date(), 500, trailer, truck, driver);
-
 		System.out.println("execute");
 		so.execute(entity);
 		Drive expected = (Drive) so.db.vratiPoId((IGeneralEntity) entity);

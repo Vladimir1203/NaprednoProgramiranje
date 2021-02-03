@@ -38,6 +38,7 @@ public class SaveDriverOperationTest {
 
 	@After
 	public void tearDown() {
+
 	}
 
 	/**
@@ -62,8 +63,8 @@ public class SaveDriverOperationTest {
 	public void testExecute() throws Exception {
 		System.out.println("execute");
 		so.execute(entity);
-		Driver expected = (Driver) so.db.vratiPoId((IGeneralEntity) entity);
-		Driver compare = (Driver) entity;
+		Driver compare = (Driver) so.db.vratiPoId((IGeneralEntity) entity);
+		Driver expected = (Driver) entity;
 		assertEquals(expected.getIDCard(), compare.getIDCard());
 	}
 

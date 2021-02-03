@@ -23,8 +23,8 @@ import fon.ai.maventransportappserver.so.AbstractGenericOperation;
  * @author stackOverflow
  */
 public class LoginOperationTest {
-	private static IGeneralEntity entity;
-	private static AbstractGenericOperation so;
+	private IGeneralEntity entity;
+	private AbstractGenericOperation so;
 
 	public LoginOperationTest() {
 	}
@@ -32,8 +32,8 @@ public class LoginOperationTest {
 	@Before
 	public void setUp() throws SQLException {
 		entity = new User();
-		((User) entity).setName("vlado1203");
-		((User) entity).setPassword("bane1203");
+		((User) entity).setUsername("test");
+		((User) entity).setPassword("test");
 		so = new LoginOperation();
 		so.db.openConnection();
 	}
@@ -41,6 +41,8 @@ public class LoginOperationTest {
 	@After
 	public void tearDown() throws SQLException {
 		so.db.closeConnection();
+		entity = null;
+		so = null;
 	}
 
 	/**
@@ -69,6 +71,21 @@ public class LoginOperationTest {
 		instance.setObject(entity);
 		IGeneralEntity result = instance.getObject();
 		assertEquals(expResult, result);
+	}
+
+	@Test(expected = java.lang.Exception.class)
+	public void execute() throws Exception {
+		User u = (User) so.db.vratiPoId((IGeneralEntity) entity);
+		User exc = (User) ((LoginOperation) so).getObject();
+		assertEquals(exc, u);
+	}
+
+	@Test
+	public void execute1() throws Exception {
+		System.out.println("VADIM KORISNIKA IZ BAZE EXEC2");
+		User u = (User) so.db.vratiPoId(new User(-1, "vlado1203", "bane1203", null, null, null));
+		User exc = new User(1, "vlado1203", "bane1203", "Vladimir", "Lazic", "vladimir12934@gmail.com");
+		assertEquals(exc, u);
 	}
 
 }
